@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template.html :: head">
+</head>
+<body>
+	<header th:replace="plantilla/template.html :: header"></header>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="jumbotron text-center">
+				<h1 class="display-3" id="user"></h1>
+				<p class="lead">AGENDA VIRTUAL</p>
+				<hr class="my-2">
+				<p></p>
+			</div>
+			<div class="col-sm-12">
+				<table
+					class="table table-sm table-hover table-striped table-responsive table-light text-center">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>TITULO</th>
+							<th>FECHA INICIO</th>
+							<th>FECHA FIN</th>
+							<th>DESCRIPCION</th>
+							<th>COLOR</th>
+							<th>NOTAS</th>
+							<th colspan="2">Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="actividad : ${actividades}" th:object="${actividad}">
+							<td th:text="*{id}"></td>
+							<td th:text="*{titulo}"></td>
+							<td th:text="*{#dates.format(fechaInicio, 'dd-MM-yyyy HH:mm ')}"></td>
+							<td th:text="*{#dates.format(fechaFin, 'dd-MM-yyyy HH:mm')}"></td>
+							<td th:text="*{descripcion}"></td>
+							<td th:text="*{color}"></td>
+							<td th:text="*{notas}"></td>
+							<td> <a class="btn btn-primary btn-sm" href="#" th:href="@{/actividad/{id}/selecionar(id=*{id})}" role="button">Editar</a> </td>
+							<td> <a class="btn btn-danger btn-sm" href="#"  th:href="@{/actividad/{id}/eliminar(id=*{id})}" role="button">Eliminar</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="plantilla/template.html :: footer"></footer>
+	<script th:src="@{JS/Content.js}"></script>
+</body>
+</html>

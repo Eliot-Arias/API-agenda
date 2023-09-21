@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="plantilla/template.html :: head">
+</head>
+
+<body>
+	<header th:replace="plantilla/template.html :: header"> </header>
+	<div class="container">
+		<div class="row">
+			<div class="jumbotron text-center">
+				<h1 class="display-3">INGRESO DE USUARIOS</h1>
+				<p class="lead">Ingrese sus credenciales para acceder</p>
+				<hr class="my-2">
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-body ">
+						<form th:action="@{/login/validar}" method="post">
+							<div class="form-group mt-2">
+								<label for="nomUser">Ingrese Usuario</label> <input type="text"
+									class="form-control" name="nomUser" id="nomUser"
+									aria-describedby="helpId" placeholder="" required>
+							</div>
+							<div class="form-group mt-2">
+								<label for="contrasenia">Ingrese Contraseña</label> <input
+									type="password" class="form-control" name="contrasenia"
+									id="contrasenia" placeholder="" required>
+							</div>
+							<div class="form-group mt-3">
+								<div th:if="${param.error}">
+									<div class="alert alert-dismissible alert-danger" id="alerta">
+										<strong>Error</strong> Nombre de usuario o contraseña
+										incorrectas
+									</div>
+								</div>
+							</div>
+							<hr class="my-3">
+							<div class="form-group d-grid">
+								<button type="submit" name="" id=""
+									class="btn btn-outline-dark btn-lg btn-block">Ingresar</button>
+							</div>
+
+							<div class="form-group mt-2">
+								<p class="text-center">
+									¿No esta registrado? <a class="link" th:href="@{/registro}">Registrarse</a>
+								</p>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="plantilla/template.html :: footer"> </footer>
+	<script th:src="@{JS/login.js}"></script>
+</body>
+</html>

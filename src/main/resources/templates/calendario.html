@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="plantilla/template.html :: head">
+</head>
+
+<body>
+	<header th:replace="plantilla/template.html :: header"> </header>
+	<div class="container">
+		<div class="row">
+			<div class="jumbotron text-center">
+				<h1 class="display-3">CALENDARIO DE ACTIVIDADES</h1>
+				<!-- <p class="lead">Ingrese sus credenciales para acceder</p> -->
+				<hr class="my-2">
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div id="calendar"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- <script>
+		document.addEventListener('DOMContentLoaded', function() {
+			var calendarEl = document.getElementById('calendar');
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				initialView : 'dayGridMonth',
+                headerToolbar : {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                },
+                events : {
+                    // Hacer una solicitud AJAX para obtener las actividades
+                    url: '/agenda/actividades', // Cambia la URL según tu configuración
+                    method: 'GET',
+                    success: function (data) {
+                        // Llena el calendario con los datos de actividades
+                        var eventos = data.map(function (actividad) {
+                            return {
+                                title: actividad.titulo,
+                                start: actividad.fechaInicio,
+                                end: actividad.fechaFin,
+                                description: actividad.descripcion,
+                                color: actividad.color
+                            };
+                        });
+                        calendar.addEventSource(eventos);
+                    },
+                    error: function () {
+                        alert('Error al cargar las actividades');
+                    }
+                }
+			});
+			calendar.render();
+		});
+	</script> -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                    },
+                    events: {
+                        // Hacer una solicitud AJAX para obtener las actividades
+                        url: '/agenda/actividades', // Cambia la URL según tu configuración
+                        method: 'GET',
+                        cache: true, // Habilita el almacenamiento en caché de eventos
+                        success: function (data) {
+                            // Elimina todos los eventos existentes antes de agregar nuevos
+                            calendar.getEvents().forEach(function (existingEvent) {
+                                existingEvent.remove();
+                            });
+
+                            // Llena el calendario con los datos de actividades
+                            var eventos = data.map(function (actividad) {
+                                return {
+                                    title: actividad.titulo,
+                                    start: actividad.fechaInicio,
+                                    end: actividad.fechaFin,
+                                    description: actividad.descripcion,
+                                    color: actividad.color
+                                };
+                            });
+                            calendar.addEventSource(eventos);
+                        },
+                        error: function () {
+                            alert('Error al cargar las actividades');
+                        }
+                    }
+                });
+                calendar.render();
+            });
+
+
+    </script>
+
+
+
+	<footer th:replace="plantilla/template.html :: footer"> </footer>
+</body>
+
+</html>
